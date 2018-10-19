@@ -1,3 +1,8 @@
+"""Authentication with Google Drive's API.
+
+Author:  Ian Fisher (iafisher@protonmail.com)
+Version: October 2018
+"""
 import os
 
 import httplib2

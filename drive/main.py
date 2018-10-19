@@ -1,5 +1,5 @@
-"""The entry point into the `drive` executable. Parses command-line arguments
-and then dispatches to the proper function in sync.py.
+"""The entry point into the `pydrive` executable. Parses command-line arguments
+and then dispatches to the proper function from the `sync` module.
 
 Author:  Ian Fisher (iafisher@protonmail.com)
 Version: October 2018
