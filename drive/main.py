@@ -6,19 +6,17 @@ Version: October 2018
 """
 import argparse
 
-from .sync import init, pull, push
+from .sync import pull, push
 
 
 def main():
     parser = argparse.ArgumentParser(description='Sync Google Drive files')
-    parser.add_argument('action', choices=['init', 'push', 'pull'])
+    parser.add_argument('action', choices=['push', 'pull'])
     # TODO: Multiple paths for push and pull commands.
     parser.add_argument('path', nargs='?', default='.')
 
     args = parser.parse_args()
-    if args.action == 'init':
-        init(args.path)
-    elif args.action == 'pull':
+    if args.action == 'pull':
         pull(args.path)
     else:
         pull(args.path)

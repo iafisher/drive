@@ -12,6 +12,10 @@ def get_credentials():
     Make sure to set the PYDRIVE_CLIENT_SECRETS environment variable to the
     location of the client secrets JSON file.
 
+    If the user has not yet given permission to this app, then this function
+    will prompt them to open a URL in a browser and copy a code back onto the
+    command line.
+
     Mainly copied from http://www.datadependence.com/2016/03/google-python-library-oauth2/
     """
     scope = 'https://www.googleapis.com/auth/drive'
@@ -19,8 +23,7 @@ def get_credentials():
         os.environ['PYDRIVE_CLIENT_SECRETS'], scope,
         redirect_uri='urn:ietf:wg:oauth:2.0:oob'
     )
-    # TODO: Find the .pydrive file even when it's in a higher directory
-    storage = file.Storage('.pydrive')
+    storage = file.Storage('~/.pydrive')
     credentials = storage.get()
 
     if not credentials or credentials.invalid:
@@ -35,6 +38,10 @@ def get_credentials():
 
 def get_service():
     """Return an authenticated Drive client.
+
+    If the user has not yet given permission to this app, then this function
+    will prompt them to open a URL in a browser and copy a code back onto the
+    command line.
 
     Mainly copied from http://www.datadependence.com/2016/03/google-python-library-oauth2/
     """

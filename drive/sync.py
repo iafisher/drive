@@ -5,14 +5,6 @@ Version: October 2018
 """
 
 
-def init(path):
-    """Prompt the user with a URL to give the application access to their
-    Google Drive, and initialize the directory at `path` with a .pydrive file
-    containing the user's credentials.
-    """
-    pass
-
-
 def push(path):
     """Push local changes at `path` to the cloud.
 
@@ -22,6 +14,10 @@ def push(path):
     If the local and remote versions of a file differ, then the remote version
     will be overwritten with the local version. If the versions do not differ,
     then no upload is performed.
+
+    If the user has not yet given permission to this app, then this function
+    will prompt them to open a URL in a browser and copy a code back onto the
+    command line.
     """
     pass
 
@@ -35,5 +31,9 @@ def pull(path):
     If the local and remote versions of a file differ, then the local version
     will be overwritten with the remote version. If the versions do not differ,
     then no download is performed.
+
+    If the user has not yet given permission to this app, then this function
+    will prompt them to open a URL in a browser and copy a code back onto the
+    command line.
     """
     pass
