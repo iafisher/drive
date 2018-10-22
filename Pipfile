@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 google-api-python-client = "*"
+docopt = "*"
 
 [dev-packages]
 "nose2" = "*"

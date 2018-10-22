@@ -1,22 +1,21 @@
-"""The entry point into the `pydrive` executable. Parses command-line arguments
-and then dispatches to the proper function from the `sync` module.
+"""Pydrive: simple Google Drive syncing on Linux.
 
-Author:  Ian Fisher (iafisher@protonmail.com)
-Version: October 2018
+Usage:
+    pydrive push [path]
+    pydrive pull [path]
+    pydrive -h | --help
+
+Options:
+    -h --help   Show this screen.
 """
-import argparse
+from docopt import docopt
 
 from .sync import pull, push
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Sync Google Drive files')
-    parser.add_argument('action', choices=['push', 'pull'])
-    # TODO: Multiple paths for push and pull commands.
-    parser.add_argument('path', nargs='?', default='.')
-
-    args = parser.parse_args()
-    if args.action == 'pull':
-        pull(args.path)
-    else:
-        pull(args.path)
+    args = docopt(__doc__)
+    if args['push']:
+        pull(args['path'])
+    elif args['pull']:
+        pull(args['path'])
