@@ -21,7 +21,7 @@ def get_credentials():
     will prompt them to open a URL in a browser and copy a code back onto the
     command line.
 
-    Mainly copied from http://www.datadependence.com/2016/03/google-python-library-oauth2/
+    Source: http://www.datadependence.com/2016/03/google-python-library-oauth2/
     """
     scope = 'https://www.googleapis.com/auth/drive'
     flow = client.flow_from_clientsecrets(
@@ -48,7 +48,7 @@ def get_service():
     will prompt them to open a URL in a browser and copy a code back onto the
     command line.
 
-    Mainly copied from http://www.datadependence.com/2016/03/google-python-library-oauth2/
+    Source: http://www.datadependence.com/2016/03/google-python-library-oauth2/
     """
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
