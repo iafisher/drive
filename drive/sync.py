@@ -5,35 +5,54 @@ Version: October 2018
 """
 
 
-def push(path):
-    """Push local changes at `path` to the cloud.
+def sync(service, folder, ignore_paths):
+    """Synchronize the folder with Google Drive. First sync behaves exactly like
+    `pull`. Subsequent syncs check for files that have changed since the last
+    sync on either locally or remotely, and handles them as follows:
 
-    `path` may point to a file or a directory. For directories, pushing is
-    recursive: all sub-directories, sub-sub-directories etc. are pushed.
+      - Files that have changed remotely are downloaded, whether or not they
+        have changed locally.
+      - Files that have changed locally but not remotely are uploaded.
 
-    If the local and remote versions of a file differ, then the remote version
-    will be overwritten with the local version. If the versions do not differ,
-    then no upload is performed.
-
-    If the user has not yet given permission to this app, then this function
-    will prompt them to open a URL in a browser and copy a code back onto the
-    command line.
+    Any files that match a pattern in `ignore_paths` will not be uploaded or
+    downloaded.
     """
+    changeset = make_changeset(service, folder, ignore_paths)
+    apply_changeset(service, changeset)
+
+
+def push(service, folder, ignore_paths):
+    """Make Google Drive identical to the folder. This operation will make no
+    local changes, only remote ones.
+
+    Any files that match a pattern in `ignore_paths` will not be uploaded.
+    """
+    raise NotImplementedError
+
+
+def pull(service, folder, ignore_paths):
+    """Make the folder identical to Google Drive. This operation will make no
+    remote changes, only remote ones.
+
+    Any files that match a pattern in `ignore_paths` will not be downloaded.
+    """
+    raise NotImplementedError
+
+
+def make_changeset(service, folder, ignore_paths):
+    raise NotImplementedError
+
+
+def make_local_changeset(folder, ignore_paths, last_sync):
     pass
 
 
-def pull(path):
-    """Pull remote changes at `path` from the cloud.
-
-    `path` may point to a file or a directory. For directories, pulling is
-    recursive: all sub-directories, sub-sub-directories etc. are pulled.
-
-    If the local and remote versions of a file differ, then the local version
-    will be overwritten with the remote version. If the versions do not differ,
-    then no download is performed.
-
-    If the user has not yet given permission to this app, then this function
-    will prompt them to open a URL in a browser and copy a code back onto the
-    command line.
-    """
+def make_remote_changeset(service, ignore_paths, last_sync):
     pass
+
+
+def apply_changeset(service, changeset):
+    """Apply the changeset. This operation may make both local and remote
+    changes.
+    """
+    raise NotImplementedError
