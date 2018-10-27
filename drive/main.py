@@ -88,22 +88,6 @@ def get_config():
     creds_path = os.path.join(folder, '.pydrive', 'credentials.json')
     service = auth.get_service(creds_path)
 
-    ignore_paths = []
-    try:
-        path = os.path.join(folder, '.pydrive-ignore')
-        with open(path, encoding='utf-8') as f:
-            for line in f:
-                line = line.strip()
-                if line.startswith('#'):
-                    continue
-                else:
-                    ignore_paths.append(line)
-    except FileNotFoundError:
-        pass
-    except PermissionError:
-        sys.stderr.write(
-            'Warning: unable to open .pydrive-ignore because of permissions'
-            + ' error\n'
-        )
+    ignore_paths = sync.load_ignore_paths(folder)
 
     return (service, folder, ignore_paths)
