@@ -1,6 +1,7 @@
 *.swp
 scratchpad
 .pydrive
+/t
 
 # Python stuff
 __pycache__

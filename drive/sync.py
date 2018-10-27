@@ -4,6 +4,7 @@ Author:  Ian Fisher (iafisher@protonmail.com)
 Version: October 2018
 """
 
+import glob
 import json
 import os
 import time
@@ -82,8 +83,8 @@ def ifiles(folder, ignore_paths):
     """Iterate over all files in the folder recursively, skipped those that
     match a pattern in `ignore_paths`.
     """
-    for path in glob.iglob(folder + '/**/*'):
-        if all(not ignore_match(ipath, path) for ipath in ignore_path):
+    for path in glob.iglob(folder + '/**/*', recursive=True):
+        if all(not ignore_match(ipath, path) for ipath in ignore_paths):
             yield path
 
 
@@ -122,7 +123,7 @@ def load_ignore_paths(folder):
         with open(path, encoding='utf-8') as f:
             for line in f:
                 line = line.strip()
-                if line.startswith('#'):
+                if not line or line.startswith('#'):
                     continue
                 elif line.startswith('/'):
                     # Absolute paths should be made relative to the folder.
